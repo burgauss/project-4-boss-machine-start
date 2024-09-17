@@ -10,14 +10,14 @@ const { createMeeting,
     deleteAllFromDatabase} = require('./db');
 
     
-apiRouter.get('/', (req, res, next)=>{
+minionsRouter.get('/', (req, res, next) => {
     console.log("fetching all minions from database");
     const minionArray = getAllFromDatabase('minions');
     // console.log("total minion array "+minionArray.length);
     res.status(200).send(minionArray);
 });
 
-apiRouter.get('/:id', (req, res, next) =>{
+minionsRouter.get('/:id', (req, res, next) =>{
     console.log("Fetching one minion");
     const minion = getFromDatabaseById('minions', req.params.id);
     if (minion === null){
@@ -27,7 +27,7 @@ apiRouter.get('/:id', (req, res, next) =>{
     }
 });
 
-apiRouter.post('/', (req, res, next) => {
+minionsRouter.post('/', (req, res, next) => {
     console.log("post minion");
     const newMinion = addToDatabase('minions', req.body)
     if (newMinion === null){
@@ -37,7 +37,7 @@ apiRouter.post('/', (req, res, next) => {
     }
 });
 
-apiRouter.put('/:id', (req, res, next)=>{
+minionsRouter.put('/:id', (req, res, next)=>{
     console.log("edit minion");
     const minion = updateInstanceInDatabase('minions', req.body);
     if (minion === null){
@@ -47,7 +47,7 @@ apiRouter.put('/:id', (req, res, next)=>{
     }
 });
 
-apiRouter.delete('/:id', (req,res,next) =>{
+minionsRouter.delete('/:id', (req,res,next) =>{
     console.log("deleting one minion");
     const status = deleteFromDatabasebyId('minions', req.params.id)
     if (status === true ){
@@ -56,3 +56,5 @@ apiRouter.delete('/:id', (req,res,next) =>{
         res.status(404).send("id not found");
     }
 })
+
+module.exports = minionsRouter;

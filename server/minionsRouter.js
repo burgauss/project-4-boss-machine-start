@@ -1,5 +1,6 @@
 const express = require('express');
 const minionsRouter = express.Router();
+const workRouter = require('./workRouter');
 
 const { createMeeting,
     getAllFromDatabase,
@@ -9,6 +10,7 @@ const { createMeeting,
     deleteFromDatabasebyId,
     deleteAllFromDatabase} = require('./db');
 
+minionsRouter.use('/:minionId/work', workRouter);
     
 minionsRouter.get('/', (req, res, next) => {
     console.log("fetching all minions from database");

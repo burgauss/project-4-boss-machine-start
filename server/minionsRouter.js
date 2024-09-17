@@ -20,7 +20,7 @@ minionsRouter.get('/', (req, res, next) => {
 minionsRouter.get('/:id', (req, res, next) =>{
     console.log("Fetching one minion");
     const minion = getFromDatabaseById('minions', req.params.id);
-    if (minion === null){
+    if (minion === null || minion === undefined){
         res.status(404).send("Minion id not found");
     } else{
         res.send(minion);

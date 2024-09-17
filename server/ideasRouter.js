@@ -1,5 +1,6 @@
 const express = require('express');
 const ideasRouter = express.Router();
+const checkMillionDollarIdea = require('./checkMillionDollarIdea');
 
 const { createMeeting,
     getAllFromDatabase,
@@ -20,15 +21,15 @@ ideasRouter.get('/', (req, res, next) => {
 ideasRouter.get('/:id', (req, res, next) =>{
     console.log("Fetching ideas by Id");
     const idea = getFromDatabaseById('ideas', req.params.id);
-    if (idea === null){
+    if (idea === null || idea === undefined){
         res.status(404).send("Ideas Id not found");
     } else{
         res.send(idea);
     }
 });
 
-ideasRouter.post('/', (req, res, next) => {
-    console.log("post idea");
+ideasRouter.post('/',checkMillionDollarIdea, (req, res, next) => {
+    console.log("posting idea");
     const newIdea = addToDatabase('ideas', req.body)
     if (newIdea === null){
         res.status(400).send('Invalid Idea')

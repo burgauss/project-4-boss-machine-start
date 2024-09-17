@@ -21,7 +21,7 @@ minionsRouter.get('/:id', (req, res, next) =>{
     console.log("Fetching one minion");
     const minion = getFromDatabaseById('minions', req.params.id);
     if (minion === null){
-        res.status(404).send("id not found");
+        res.status(404).send("Minion id not found");
     } else{
         res.send(minion);
     }
@@ -53,7 +53,7 @@ minionsRouter.delete('/:id', (req,res,next) =>{
     if (status === true ){
         res.status(204).send();
     } else{
-        res.status(404).send("id not found");
+        res.status(404).send("Minion id not found");
     }
 })
 

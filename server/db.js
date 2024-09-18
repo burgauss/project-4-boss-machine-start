@@ -210,6 +210,19 @@ const getFromDatabaseById = (modelType, id) => {
   });
 }
 
+const getAllWorkFromMinionId = (minionId) => {
+
+  const isValidIdMinion = db.allMinions.data.some(element => element.id === minionId);
+
+  if (isValidIdMinion) {
+    const work = db.allWork.data.filter(work => work.minionId === minionId);
+    return work; // Ensure the work array is returned only if the minionId is valid
+  }
+  
+  return []; // Return an empty array if the minionId is not valid
+
+}
+
 const addToDatabase = (modelType, instance) => {
   const model = findDataArrayByName(modelType);
   if (model === null) {
@@ -271,4 +284,5 @@ module.exports = {
   updateInstanceInDatabase,
   deleteFromDatabasebyId,
   deleteAllFromDatabase,
+  getAllWorkFromMinionId
 };

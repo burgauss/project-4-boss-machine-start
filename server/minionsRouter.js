@@ -1,16 +1,15 @@
 const express = require('express');
 const minionsRouter = express.Router();
 const workRouter = require('./workRouter');
+minionsRouter.use('/:minionId/work', workRouter);
 
-const { createMeeting,
-    getAllFromDatabase,
+const {getAllFromDatabase,
     getFromDatabaseById,
     addToDatabase,
     updateInstanceInDatabase,
-    deleteFromDatabasebyId,
-    deleteAllFromDatabase} = require('./db');
+    deleteFromDatabasebyId
+    } = require('./db');
 
-minionsRouter.use('/:minionId/work', workRouter);
     
 minionsRouter.get('/', (req, res, next) => {
     console.log("fetching all minions from database");
@@ -57,6 +56,8 @@ minionsRouter.delete('/:id', (req,res,next) =>{
     } else{
         res.status(404).send("Minion id not found");
     }
-})
+});
+
+
 
 module.exports = minionsRouter;

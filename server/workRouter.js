@@ -11,7 +11,7 @@ workRouter.get('/', (req, res, next)=>{
     console.log("Fetching one minion work");
     const work = getAllWorkFromMinionId(req.params.minionId);
     //TODO: make this function to return an array
-    console.log("result of getAllWorkFromMinionId"+JSON.stringify(work, null, 2));
+    // console.log("result of getAllWorkFromMinionId"+JSON.stringify(work, null, 2));
     if (work === null || work === undefined){
         res.status(404).send("work to related minion Id non existent");
     } else{

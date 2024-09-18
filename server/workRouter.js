@@ -31,12 +31,37 @@ workRouter.post('/', (req, res, next)=>{
 
 workRouter.put('/:workId', (req, res, next) =>{
     console.log("edit work");
-    const editedWork = updateInstanceInDatabase('work', req.body);
-    if (editedWork === null){
-        res.status(404).send('work id not found');
+    const work = getAllWorkFromMinionId(req.params.minionId);
+    console.log("work of minion "+ req.params.minionId + " is " + JSON.stringify(work,null,2));
+
+    if (work === null || work === undefined){
+        res.status(404).send('work related to the minion id inexistent');
     } else{
-        res.send(editedWork);
+        const workIdBelongstoMinion = work.some(work => work.id === req.params.workId);
+        if (workIdBelongstoMinion){
+            const editedWork = updateInstanceInDatabase('work', req.body);
+            if (editedWork === null){
+                res.status(404).send('work id not found');
+            } else{
+                res.send(editedWork);
+            }
+        } else{
+            res.status(400).send('work id does not belong to the minion id');
+        }
+        // console.log('workId belongs to minionId: '+ workIdBelongstoMinion + ' req params work id: ' +req.params.workId);
     }
+
+    // if (work.some(work => work.id === req.params.workId)){
+    //     const editedWork = updateInstanceInDatabase('work', req.body);
+    //     if (editedWork === null){
+    //         res.status(404).send('work id not found');
+    //     }
+    //     res.send(editedWork);
+    // }
+    // res.status(404).send('work id not found');
+    
+
+
 });
 
 workRouter.delete('/:workId', (req, res, next) =>{

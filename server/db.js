@@ -217,9 +217,9 @@ const getAllWorkFromMinionId = (minionId) => {
   if (isValidIdMinion) {
     const work = db.allWork.data.filter(work => work.minionId === minionId);
     return work; // Ensure the work array is returned only if the minionId is valid
-  }
+  } 
   
-  return []; // Return an empty array if the minionId is not valid
+  return null; // Return an empty array if the minionId is not valid
 
 }
 
